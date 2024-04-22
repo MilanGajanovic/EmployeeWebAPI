@@ -31,5 +31,14 @@ namespace MVC.Controllers
             return View(empList);
 
         }
+        public ActionResult AddOrEdit() {
+        return View(new mvcEmployeeModel());
+                }
+
+        [HttpPost]
+        public ActionResult DELETE()
+        {
+            return View();
+        }
     }
 }
