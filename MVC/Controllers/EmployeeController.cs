@@ -30,17 +30,36 @@ namespace MVC.Controllers
             }
 
             return View(empList);
-
         }
-        public ActionResult AddOrEdit(int id = 0) {
-        return View(new mvcEmployeeModel());
-                }
+
+        public ActionResult AddOrEdit(int id = 0)
+        {
+            if (id == 0) // Adding a new employee
+            {
+                return View(new mvcEmployeeModel());
+            }
+            else // Editing an existing employee
+            {
+                HttpResponseMessage response = GlobalVariables.WebApiClient.GetAsync("Employee/" + id.ToString()).Result;
+                return View(response.Content.ReadAsAsync<mvcEmployeeModel>().Result);
+                
+            }
+        }
+
 
         [HttpPost]
         public ActionResult AddOrEdit(mvcEmployeeModel emp)
-        {   
-            HttpResponseMessage response = GlobalVariables.WebApiClient.PostAsJsonAsync("Employee", emp).Result;
-            TempData["SuccessMessage"] = "Save Successfully";
+        {
+            if (emp.EmployeeID == 0)
+            {
+                HttpResponseMessage response = GlobalVariables.WebApiClient.PostAsJsonAsync("Employee", emp).Result;
+                TempData["SuccessMessage"] = "Saved Successfully";
+            }
+            else
+            {
+                HttpResponseMessage response = GlobalVariables.WebApiClient.PutAsJsonAsync("Employee/"+ emp.EmployeeID, emp).Result;
+                TempData["SuccessMessage"] = "Updated Successfully";
+            }
             return RedirectToAction("Index");
             
         }
