@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
+using System.Net.Http.Formatting;
 
 namespace MVC.Controllers
 {
@@ -36,8 +37,10 @@ namespace MVC.Controllers
                 }
 
         [HttpPost]
-        public ActionResult DELETE()
-        {
+        public ActionResult AddOrEdit(mvcEmployeeModel emp)
+        {   
+            HttpResponseMessage response = GlobalVariables.WebApiClient.PostAsJsonAsync("Employee", emp).Result;
+
             return View();
         }
     }
