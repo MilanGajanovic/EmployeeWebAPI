@@ -10,7 +10,7 @@
 </p>
 <table class="table table-striped">
     <thead class="table-heading">
-        
+
         <tr>
 
             <th>
@@ -27,30 +27,39 @@
             </th>
             <th>Actions</th>
         </tr>
-        </thead>
+    </thead>
 
-        @foreach (var item in Model)
-        {
-            <tr>
+    @foreach (var item in Model)
+    {
+        <tr>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Position)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Age)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Salary)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                </td>
-            </tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+    }
+</table>
+    @section scripts{
+        <script>
+            $(function() {
+                var successMessage = '@TempData["SuccessMessage"]'
+                if (successMessage != '')
+                    alertify.success(successMessage);
+            });
+        </script>
         }
 
-</table>

@@ -32,7 +32,7 @@ namespace MVC.Controllers
             return View(empList);
 
         }
-        public ActionResult AddOrEdit() {
+        public ActionResult AddOrEdit(int id = 0) {
         return View(new mvcEmployeeModel());
                 }
 
@@ -40,8 +40,9 @@ namespace MVC.Controllers
         public ActionResult AddOrEdit(mvcEmployeeModel emp)
         {   
             HttpResponseMessage response = GlobalVariables.WebApiClient.PostAsJsonAsync("Employee", emp).Result;
-
-            return View();
+            TempData["SuccessMessage"] = "Save Successfully";
+            return RedirectToAction("Index");
+            
         }
     }
-}
+} 
