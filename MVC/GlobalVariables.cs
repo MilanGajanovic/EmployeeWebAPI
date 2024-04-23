@@ -13,10 +13,18 @@ namespace MVC
 
         static GlobalVariables()
         {
-            WebApiClient.BaseAddress = new Uri("https://localhost:44316/api");
+            WebApiClient = new HttpClient();
+
+            // Set base address
+            WebApiClient.BaseAddress = new Uri("https://localhost:44831/api");
+
+            // Clear default request headers
             WebApiClient.DefaultRequestHeaders.Clear();
-            WebApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+            // Add accept header for JSON
+            WebApiClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("text/html"));
         }
+
 
     }
 }

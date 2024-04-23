@@ -18,5 +18,6 @@ namespace MVC.Controllers
             empList = response.Content.ReadAsAsync<IEnumerable<mvcEmployeeModel>>().Result;
             return View(empList);
         }
+
     }
 }
