@@ -46,8 +46,9 @@
                 @Html.DisplayFor(modelItem => item.Salary)
             </td>
             <td>
-                <a href="@Url.Action("AddOrEdit", "Employee", new { id = item.EmployeeID })" class = "btn btn-default">Edit</a>
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                <a href="@Url.Action("AddOrEdit", "Employee", new { id = item.EmployeeID })" class="btn btn-default">Edit</a>
+                <a onclick="Delete(@item.EmployeeID)" class="btn btn-default">Delete</a>
+              
             </td>
         </tr>
     }
@@ -59,6 +60,14 @@
                 if (successMessage != '')
                     alertify.success(successMessage);
             });
+
+            function Delete(id) {
+                alertify.confirm('Web API CRUD Operation', 'Are you sure to Delele this record?', function () {
+                    window.location.href = '@Url.Action("Delete", "Employee")/' + id;
+                }, null);
+            }
+
+
         </script>
         }
 

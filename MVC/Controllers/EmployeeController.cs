@@ -1,12 +1,8 @@
 ﻿using MVC.Models;
 using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Web;
 using System.Web.Mvc;
-using System.Net.Http.Formatting;
 
 namespace MVC.Controllers
 {
@@ -42,10 +38,9 @@ namespace MVC.Controllers
             {
                 HttpResponseMessage response = GlobalVariables.WebApiClient.GetAsync("Employee/" + id.ToString()).Result;
                 return View(response.Content.ReadAsAsync<mvcEmployeeModel>().Result);
-                
+
             }
         }
-
 
         [HttpPost]
         public ActionResult AddOrEdit(mvcEmployeeModel emp)
@@ -57,11 +52,18 @@ namespace MVC.Controllers
             }
             else
             {
-                HttpResponseMessage response = GlobalVariables.WebApiClient.PutAsJsonAsync("Employee/"+ emp.EmployeeID, emp).Result;
+                HttpResponseMessage response = GlobalVariables.WebApiClient.PutAsJsonAsync("Employee/" + emp.EmployeeID, emp).Result;
                 TempData["SuccessMessage"] = "Updated Successfully";
             }
             return RedirectToAction("Index");
-            
+
+        }
+
+        public ActionResult Delete(int id)
+        {
+            HttpResponseMessage response = GlobalVariables.WebApiClient.DeleteAsync("Employee/" + id.ToString()).Result;
+            TempData["SuccessMessage"] = "Deleted Successfully";
+            return RedirectToAction("Index");
         }
     }
-} 
+}
