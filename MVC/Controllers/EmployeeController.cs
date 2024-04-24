@@ -38,7 +38,6 @@ namespace MVC.Controllers
             {
                 HttpResponseMessage response = GlobalVariables.WebApiClient.GetAsync("Employee/" + id.ToString()).Result;
                 return View(response.Content.ReadAsAsync<mvcEmployeeModel>().Result);
-
             }
         }
 
